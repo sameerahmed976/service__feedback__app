@@ -1,7 +1,21 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 const App = () => {
-  return <></>;
+  return (
+    <>
+      <header className="header">
+        <h1 class="logo">Service Experience</h1>
+      </header>
+      <main className="main">
+        <section className="feedback__container">
+          <article className="feedback__menu">
+            <h2 className="feedback__title"></h2>
+          </article>
+        </section>
+      </main>
+      <footer className="footer"></footer>
+    </>
+  );
 };
 
 export default App;
