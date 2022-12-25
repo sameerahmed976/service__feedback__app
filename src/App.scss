@@ -99,35 +99,32 @@ p {
   font-size: var(--font-size-h5);
 }
 
-
-.btn{
-    display: block;
-    padding: .5rem 1rem;
-    font-size: var(--font-size-h5);
-    text-transform: capitalize;
-    letter-spacing: 1px;
-    font-weight: bold;
-    color: var(--tertiary-color);
-    margin: 0 auto;
-    margin-bottom: 1rem;
-border: none;
-border: 1px solid var(--primary-color);
-transition: var(--transition-8);
-cursor: pointer;
-border-radius: .5rem;
+.btn {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-h5);
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: var(--tertiary-color);
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  border: none;
+  border: 1px solid var(--primary-color);
+  transition: var(--transition-8);
+  cursor: pointer;
+  border-radius: 0.5rem;
 }
 
-
-.btn:hover{
-    background-color: var(--secondary-color);
-    color: black;
-    transform: translateY(5px);
+.btn:hover {
+  background-color: var(--secondary-color);
+  color: black;
+  transform: translateY(5px);
 }
-
 
 // header
 
-.header{
+.header {
   height: 4rem;
   background-color: var(--background-color);
   display: grid;
@@ -135,9 +132,7 @@ border-radius: .5rem;
   box-shadow: var(--box-shadow-1);
 }
 
-
-
-.logo{
+.logo {
   font-size: var(--font-size-h4);
   text-align: center;
   color: var(--primary-color);

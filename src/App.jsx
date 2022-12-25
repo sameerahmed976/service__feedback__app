@@ -4,7 +4,7 @@ const App = () => {
   return (
     <>
       <header className="header">
-        <h1 class="logo">Service Experience</h1>
+        <h1 className="logo">Service Experience</h1>
       </header>
       <main className="main">
         <section className="feedback__container">
