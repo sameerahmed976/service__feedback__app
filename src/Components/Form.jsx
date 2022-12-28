@@ -6,60 +6,106 @@ const Form = () => {
   const {
     feedback,
     setFeedback,
-    setMessage,
-    setIsMessage,
-    removeAlert,
-    feedbackEdit,
-    updateFeedback,
+    rating,
+    setRating,
+    text,
+    setText,
+    setSelected,
+    isEdit,
+    id,
+    isLoading,
+    setId,
+    setIsEdit,
   } = useAppContext();
 
-  const [text, setText] = useState("");
-  const [rating, setRating] = useState("");
+  const addFeedback = async (newFeedback) => {
+    try {
+      const response = await fetch("http://localhost:3000/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFeedback),
+      });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+      const data = await response.json();
 
-    if (!text || !rating) {
-      setIsMessage(true);
-      setMessage("Please enter valid text");
-      removeAlert(false, "");
-      return;
+      // console.log(data);
+      setFeedback([data, ...feedback]);
+    } catch (error) {
+      console.log(error);
     }
-
-    setIsMessage(true);
-    setMessage("add review");
-    removeAlert(false, "");
-
-    const id = new Date().getTime().toString();
-    const newFeedback = {
-      text: text,
-      id: id,
-      rating: rating,
-    };
-    // console.log(
-    //   `* ~ file: Form.jsx:16 ~ handleSubmit ~ newFeedback`,
-    //   newFeedback
-    // );
-
-    if (feedbackEdit.edit) {
-      updateFeedback(feedbackEdit.item.id, newFeedback);
-    } else {
-      setFeedback([...feedback, newFeedback]);
-    }
-
-    // console.log(feedback);
-
-    setText("");
   };
 
-  useEffect(() => {
-    console.log(feedbackEdit);
-    if (feedbackEdit.edit) {
-      setText(feedbackEdit.item.text);
-      setRating(feedbackEdit.item.rating);
-    }
-  }, [feedbackEdit]);
+  const updateCard = async (item, id) => {
+    // console.log(
+    //   `* ~ file: Form.jsx:41 ~ updateCard ~ updateItem`,
+    //   item,
+    //   typeof id
+    // );
+    const itemSingle = item.find((i) => {
+      return i.id === id;
+    });
 
+    try {
+      const response = await fetch("http://localhost:3000/feedback/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(itemSingle),
+      });
+      const data = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    // console.log(e);
+    e.preventDefault();
+
+    // console.log(text === !text);
+
+    if (text === "" || !rating) {
+      alert("enter text and select rating");
+      return;
+    } else if (isEdit) {
+      console.log("edit");
+
+      const newFeedback = feedback.map((item) => {
+        if (item.id === id) {
+          return { ...item, text: text, rating: rating };
+        }
+        return item;
+      });
+      console.log(
+        `* ~ file: Form.jsx:75 ~ newFeedback ~ newFeedback`,
+        newFeedback
+      );
+      setFeedback(newFeedback);
+      updateCard(newFeedback, id);
+
+      // console.log(feedback);
+      setText("");
+      setSelected("");
+      setId("");
+      setIsEdit(false);
+    } else {
+      const newFeedback = {
+        text: text,
+        rating: rating,
+      };
+      addFeedback(newFeedback);
+
+      setText("");
+      setSelected("");
+    }
+  };
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <>
       <section className="feedback__container">
